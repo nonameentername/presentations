@@ -116,6 +116,7 @@ That led me to create **Godot-Csound** — a way to integrate **Csound’s** pow
 # Demo
 
 ![godot_synths](theme/images/godot-synths.png)
+![github_synths](theme/images/github-synths.svg)
 
 ---
 
