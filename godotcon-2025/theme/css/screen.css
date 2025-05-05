@@ -673,8 +673,8 @@ body {
 
 /* Literal.Number.Integer.Long */
 
-img[alt=godot_icon] { width: 300px; }
-img[alt=csound] { width: 600px; }
+img[alt=godot_icon] { width: 280px; }
+img[alt=csound] { width: 560px; }
 img[alt=godot_synths] { width: 600px; }
 img[alt=github] { width: 200px; position: absolute; bottom: 60px; left: 120px; }
 img[alt=github_synths] { width: 200px; position: absolute; bottom: 60px; left: 120px; }

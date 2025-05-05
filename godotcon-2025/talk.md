@@ -1,4 +1,4 @@
-# Godot Csound
+# Synths and Sound Design in Godot with Csound
 
 ![godot_icon](theme/images/godot_icon.svg)
 ![csound](theme/images/csound.svg)
@@ -79,7 +79,7 @@ That led me to create **Godot-Csound** — a way to integrate **Csound’s** pow
 
 ---
 
-# Csound synthesiser
+# Csound Synthesiser
 
     !csound
 		<CsoundSynthesizer>
@@ -103,6 +103,7 @@ That led me to create **Godot-Csound** — a way to integrate **Csound’s** pow
 		  outall(aOut)
 		endin
 
+		massign 1, 1
 		</CsInstruments>
 		<CsScore>
 		// call instrument 1 in sequence
@@ -110,6 +111,32 @@ That led me to create **Godot-Csound** — a way to integrate **Csound’s** pow
 		i 1 3 3 0.2 550
 		</CsScore>
 		</CsoundSynthesizer>
+
+---
+
+# Csound in GDScript
+
+    !gdscript
+
+		extends Node2D
+		var csound: CsoundGodot
+
+		func _ready():
+			CsoundServer.connect("csound_layout_changed", csound_layout_changed)
+			CsoundServer.connect("csound_ready", csound_ready)
+
+		func csound_layout_changed():
+			csound = CsoundServer.get_csound("Main")
+
+		func csound_ready(csound_name):
+			if csound_name == "Main":
+				csound.send_control_channel("cutoff", 1)
+
+		func _on_check_button_toggled(toggled_on: bool):
+			if toggled_on:
+				csound.note_on(0, 60, 90)
+			else:
+				csound.note_off(0, 60)
 
 ---
 
