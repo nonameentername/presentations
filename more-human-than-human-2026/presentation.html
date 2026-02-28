@@ -1,0 +1,611 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Godot Audio Stack</title>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow|PT+Mono' rel='stylesheet' type='text/css'>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+</head>
+<body class="list">
+    
+      <!-- slide source: talk.md -->
+        <section class="slide bg-image">
+            <div>
+                
+                    <header><h1>Godot Audio Stack</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Introduction</h1></header>
+                
+                
+                    <section class="slide-content"><p>Hi, I’m <strong>Werner</strong> — a software engineer and indie game developer from San Antonio.</p>
+<p>I’m the creator of <strong>Godot-Csound</strong>, <strong>Godot-Distrho</strong>, and <strong>Godot-LV2/VST3-Host</strong> — a set of open-source projects that bring real-time sound synthesis and plugin development into the <strong>Godot</strong> game engine.</p>
+<p>I’m passionate about game development and open-source software.
+I’ve been a hobbyist indie game developer for over 20 years and have worked professionally as a software engineer.</p>
+<p><img alt="github" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/images/github.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Game Audio Production Pipeline</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li>Audio for games is typically created using a DAW (Digital Audio Workstation) and audio plugins (VST3, LV2).</li>
+<li>A sound designer or musician creates songs and sound effects in their software and exports them as assets (WAV, MP3).</li>
+<li>The game then plays back those songs and sounds during gameplay.</li>
+</ul>
+<p>Rich audio tools and workflows often get flattened into static audio files.</p>
+<p>There are existing proprietary middleware tools like <strong>FMOD</strong> and <strong>Wwise</strong> that allow for procedural audio, but they are not open-source.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Game Audio Production Pipeline</h1></header>
+                
+                
+                    <section class="slide-content"><p><img alt="daw_diagram" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/images/daw-diagram.png" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Game Audio Production Pipeline</h1></header>
+                
+                
+                    <section class="slide-content"><p><img alt="daw_diagram" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/images/audio-diagram.png" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Godot Audio Stack</h1></header>
+                
+                
+                    <section class="slide-content"><p><img alt="daw_diagram" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/images/godot-distrho-diagram.png" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Why Godot-Csound?</h1></header>
+                
+                
+                    <section class="slide-content"><p>For my current game project, I needed a real-time, dynamic music system that could respond directly to gameplay.</p>
+<p>As a strong supporter of open-source software, I wanted a solution that would give me full creative control without relying on proprietary middleware like <strong>FMOD</strong> or <strong>Wwise</strong>. I also wanted to stay fully within the <strong>Godot</strong> ecosystem, rather than moving to <strong>Unity</strong>.</p>
+<p>That led me to create <strong>Godot-Csound</strong> — a way to integrate <strong>Csound’s</strong> powerful synthesis capabilities directly into <strong>Godot</strong>, making procedural and dynamic audio truly native to the engine.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>What is Csound?</h1></header>
+                
+                
+                    <section class="slide-content"><p><strong>Csound</strong> is a powerful, open-source audio synthesis and signal processing system developed over decades by an incredible community of composers, developers, and researchers.</p>
+<h2>Prior Work</h2>
+<p>Projects like <strong>Cabbage</strong> (which makes VSTs with Csound) and <strong>CsoundUnity</strong> (which integrates Csound with Unity), both by <strong>Rory Walsh</strong>, were major inspirations for <strong>Godot-Csound</strong>.</p>
+<h2>Thanks to the Csound Developers</h2>
+<p>I want to take a moment to thank the <strong>Csound developers</strong> for making such a powerful tool freely available to everyone.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Core Features</h1></header>
+                
+                
+                    <section class="slide-content"><p><strong>Real-Time Audio Synthesis</strong><br />
+Design and generate sound dynamically at runtime using Csound’s powerful synthesis engine.</p>
+<p><strong>Parameter Control via GDScript</strong><br />
+Send real-time values from Godot to Csound using simple API calls (<code>send_control_channel</code>, <code>note_on</code>, <code>event_string</code>).</p>
+<p><strong>Custom Instruments via <code>.csd</code> Files</strong><br />
+Define your own synthesizers, effects chains, or sound logic using Csound’s orchestration language.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Core Features</h1></header>
+                
+                
+                    <section class="slide-content"><p><strong>Modular Architecture</strong> — Multiple <strong>CsoundGodot</strong> instances can run in parallel, each with its own synth or audio role.</p>
+<p><strong>Seamless Audio Integration</strong> — Csound-generated audio is routed through Godot’s AudioServer and can be mixed, spatialized, or processed like any other sound.</p>
+<p><strong>Cross-Platform Support</strong> — Runs on Windows, macOS, Linux, Android, iOS, and the Web (via WASM).</p>
+<p><strong>Open-Source and Extensible</strong> — Fully open-source and designed for hacking, customization, and integration with other Godot systems.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Csound Synthesizer</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="o">&lt;</span><span class="n">CsoundSynthesizer</span><span class="o">&gt;</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="o">&lt;</span><span class="n">CsOptions</span><span class="o">&gt;</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">dac</span><span class="w"> </span><span class="c1">// real-time output</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="o">&lt;/</span><span class="n">CsOptions</span><span class="o">&gt;</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="o">&lt;</span><span class="n">CsInstruments</span><span class="o">&gt;</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="vg">sr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">44100</span><span class="w"> </span><span class="c1">// sample rate</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="vg">0dbfs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// maximum amplitude (0 dB) is 1</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="vg">nchnls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1">// number of channels is 2 (stereo)</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="vg">ksmps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="c1">// number of samples in one control cycle (audio vector)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="kd">instr</span><span class="w"> </span><span class="nf">1</span>
+<span class="linenos">12</span><span class="w">      </span><span class="c1">// get p4 from the score line as amplitude</span>
+<span class="linenos">13</span><span class="w">      </span><span class="kt">i</span><span class="n">Amp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vi">p4</span>
+<span class="linenos">14</span><span class="w">      </span><span class="c1">// get p5 from the score line as frequency</span>
+<span class="linenos">15</span><span class="w">      </span><span class="kt">i</span><span class="n">Freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vi">p5</span>
+<span class="linenos">16</span><span class="w">      </span><span class="c1">// sawtooth tone with these amplitude and frequency values</span>
+<span class="linenos">17</span><span class="w">      </span><span class="kt">a</span><span class="n">Out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">vco2</span><span class="p">:</span><span class="kt">a</span><span class="p">(</span><span class="kt">i</span><span class="n">Amp</span><span class="p">,</span><span class="w"> </span><span class="kt">i</span><span class="n">Freq</span><span class="p">)</span>
+<span class="linenos">18</span><span class="w">      </span><span class="c1">// output to all channels</span>
+<span class="linenos">19</span><span class="w">      </span><span class="nb">outall</span><span class="p">(</span><span class="kt">a</span><span class="n">Out</span><span class="p">)</span>
+<span class="linenos">20</span><span class="w">    </span><span class="kd">endin</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="w">    </span><span class="nb">massign</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span>
+<span class="linenos">23</span><span class="w">    </span><span class="o">&lt;/</span><span class="n">CsInstruments</span><span class="o">&gt;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="o">&lt;</span><span class="n">CsScore</span><span class="o">&gt;</span>
+<span class="linenos">25</span><span class="w">    </span><span class="c1">// call instrument 1 in sequence</span>
+<span class="linenos">26</span><span class="w">    </span><span class="nb">i</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="mi">440</span>
+<span class="linenos">27</span><span class="w">    </span><span class="nb">i</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="mi">550</span>
+<span class="linenos">28</span><span class="w">    </span><span class="o">&lt;/</span><span class="n">CsScore</span><span class="o">&gt;</span>
+<span class="linenos">29</span><span class="w">    </span><span class="o">&lt;/</span><span class="n">CsoundSynthesizer</span><span class="o">&gt;</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Csound in GDScript</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="k">extends</span><span class="w"> </span><span class="n">Node2D</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">csound</span><span class="p">:</span><span class="w"> </span><span class="n">CsoundGodot</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_ready</span><span class="p">():</span>
+<span class="linenos"> 5</span><span class="w">        </span><span class="n">CsoundServer</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;csound_layout_changed&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">csound_layout_changed</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="w">        </span><span class="n">CsoundServer</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;csound_ready&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">csound_ready</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">csound_layout_changed</span><span class="p">():</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="n">csound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CsoundServer</span><span class="o">.</span><span class="n">get_csound</span><span class="p">(</span><span class="s2">&quot;Main&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">csound_ready</span><span class="p">(</span><span class="n">csound_name</span><span class="p">):</span>
+<span class="linenos">12</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">csound_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;Main&quot;</span><span class="p">:</span>
+<span class="linenos">13</span><span class="w">            </span><span class="n">csound</span><span class="o">.</span><span class="n">send_control_channel</span><span class="p">(</span><span class="s2">&quot;cutoff&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_check_button_toggled</span><span class="p">(</span><span class="n">toggled_on</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">):</span>
+<span class="linenos">16</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">toggled_on</span><span class="p">:</span>
+<span class="linenos">17</span><span class="w">            </span><span class="n">csound</span><span class="o">.</span><span class="n">note_on</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span>
+<span class="linenos">18</span><span class="w">        </span><span class="k">else</span><span class="p">:</span>
+<span class="linenos">19</span><span class="w">            </span><span class="n">csound</span><span class="o">.</span><span class="n">note_off</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="w">    </span><span class="o">...</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Why Godot-Distrho?</h1></header>
+                
+                
+                    <section class="slide-content"><p><strong>Plugin Development with Godot</strong> —  By using <strong>libgodot</strong>, it is now possible to embed the Godot engine as a library. This opens the door to building <strong>audio plugins</strong> with Godot — not just game projects.</p>
+<p><strong><code>Goal</code>: Godot-Powered Audio Plugins</strong> —  Use <strong>libgodot</strong> together with the <strong>DISTRHO Plugin Framework</strong> to create plugins in formats like <strong>LADSPA</strong>, <strong>DSSI</strong>, <strong>LV2</strong>, <strong>VST2</strong>, <strong>VST3</strong>, and <strong>CLAP</strong>.</p>
+<p><strong>Why It Matters</strong> —  Developers and composers can use <strong>Godot</strong> to create <strong>interactive synthesizers and effects</strong> for use in DAWs (Digital Audio Workstations), bridging game audio and plugin development with open-source tools.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>What is the DISTRHO Plugin Framework?</h1></header>
+                
+                
+                    <section class="slide-content"><p><strong>DPF</strong> is designed to make developing new plugins easy and enjoyable.
+It allows developers to create plugins with custom UIs using a simple C++ API.
+The framework supports exporting multiple plugin formats from the same codebase.</p>
+<h2>Thanks to the DPF Developers</h2>
+<p>I want to take a moment to thank the <strong>DPF developers</strong>.</p>
+<h2>Godot-Distrho</h2>
+<p><strong>Godot-Distrho</strong> allows developers to create audio plugins without writing C++. <strong>Godot</strong> is used to define plugin behavior and route MIDI/audio.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Distrho Plugin Definition in GDScript</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="k">extends</span><span class="w"> </span><span class="n">DistrhoPluginInstance</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_init</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">set_distrho_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">get_uri</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="p">:</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;https://github.com/nonameentername/godot-distrho&quot;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">get_parameters</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="p">:</span>
+<span class="linenos">10</span><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos">11</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">                </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Volume&quot;</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">                </span><span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Volume used to change how loud sound is played&quot;</span><span class="p">,</span>
+<span class="linenos">14</span><span class="w">                </span><span class="s2">&quot;default_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">                </span><span class="s2">&quot;min_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="linenos">16</span><span class="w">                </span><span class="s2">&quot;max_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos">17</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">18</span><span class="w">        </span><span class="p">]</span>
+<span class="linenos">19</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">parameters</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">create_parameter</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">get_input_ports</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="p">:</span>
+<span class="linenos">23</span><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="n">ports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos">24</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">25</span><span class="w">                </span><span class="s2">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">HINT_NONE</span><span class="p">,</span>
+<span class="linenos">26</span><span class="w">                </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Input Left&quot;</span><span class="p">,</span>
+<span class="linenos">27</span><span class="w">                </span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_left&quot;</span><span class="p">,</span>
+<span class="linenos">28</span><span class="w">                </span><span class="s2">&quot;group_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">PORT_GROUP_STEREO</span>
+<span class="linenos">29</span><span class="w">            </span><span class="p">},</span>
+<span class="linenos">30</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">31</span><span class="w">                </span><span class="s2">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">HINT_NONE</span><span class="p">,</span>
+<span class="linenos">32</span><span class="w">                </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Input Right&quot;</span><span class="p">,</span>
+<span class="linenos">33</span><span class="w">                </span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_right&quot;</span><span class="p">,</span>
+<span class="linenos">34</span><span class="w">                </span><span class="s2">&quot;group_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">PORT_GROUP_STEREO</span>
+<span class="linenos">35</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">36</span><span class="w">        </span><span class="p">]</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ports</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">create_audio_port</span><span class="p">)</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Distrho Plugin Definition in GDScript</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">get_output_ports</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="n">ports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 3</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos"> 4</span><span class="w">                </span><span class="s2">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">HINT_NONE</span><span class="p">,</span>
+<span class="linenos"> 5</span><span class="w">                </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Output Left&quot;</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">                </span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output_left&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">                </span><span class="s2">&quot;group_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">PORT_GROUP_STEREO</span>
+<span class="linenos"> 8</span><span class="w">            </span><span class="p">},</span>
+<span class="linenos"> 9</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos">10</span><span class="w">                </span><span class="s2">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">HINT_NONE</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">                </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Output Right&quot;</span><span class="p">,</span>
+<span class="linenos">12</span><span class="w">                </span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output_right&quot;</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">                </span><span class="s2">&quot;group_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoAudioPort</span><span class="o">.</span><span class="n">PORT_GROUP_STEREO</span>
+<span class="linenos">14</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos">15</span><span class="w">        </span><span class="p">]</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ports</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">create_audio_port</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">get_state_values</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">Dictionary</span><span class="p">:</span>
+<span class="linenos">21</span><span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="n">midi_keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">88</span><span class="p">):</span>
+<span class="linenos">24</span><span class="w">            </span><span class="n">midi_keys</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;false&quot;</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">midi_keys</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="w">    </span><span class="o">...</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Distrho Plugin Logic in GDScript</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="k">extends</span><span class="w"> </span><span class="n">Node2D</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="err">@</span><span class="k">onready</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">distrho_player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="n">DistrhoPlayer</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_ready</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos"> 6</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">parameter_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_parameter_changed</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">state_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_state_changed</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">midi_event</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_midi_event</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">midi_note_on</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_midi_note_on</span><span class="p">)</span>
+<span class="linenos">10</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">midi_note_off</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_midi_note_off</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_parameter_changed</span><span class="p">(</span><span class="n">index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">13</span><span class="w">        </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plugin: Parameter Changed: index: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; value: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="linenos">14</span><span class="w">        </span><span class="n">distrho_player</span><span class="o">.</span><span class="n">volume_linear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_state_changed</span><span class="p">(</span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">18</span><span class="w">        </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plugin: State Changed: key: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; value: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_midi_event</span><span class="p">(</span><span class="n">midi_event</span><span class="p">:</span><span class="w"> </span><span class="n">DistrhoMidiEvent</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">22</span><span class="w">        </span><span class="n">DistrhoPluginServer</span><span class="o">.</span><span class="n">send_midi_event</span><span class="p">(</span><span class="n">midi_event</span><span class="p">)</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_midi_note_on</span><span class="p">(</span><span class="n">channel</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">note</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">velocity</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">):</span>
+<span class="linenos">25</span><span class="w">        </span><span class="k">pass</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_midi_note_off</span><span class="p">(</span><span class="n">channel</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">note</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">velocity</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">):</span>
+<span class="linenos">28</span><span class="w">        </span><span class="k">pass</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h1>Distrho UI in GDScript</h1></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="k">extends</span><span class="w"> </span><span class="n">Node2D</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_ready</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">        </span><span class="n">DistrhoUIServer</span><span class="o">.</span><span class="n">parameter_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_parameter_changed</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="w">        </span><span class="n">DistrhoUIServer</span><span class="o">.</span><span class="n">state_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_state_changed</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_parameter_changed</span><span class="p">(</span><span class="n">index</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UI: Parameter Changed: index: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; value: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_state_changed</span><span class="p">(</span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">        </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UI: State Changed: key: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; value: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_note_on_button_pressed</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">15</span><span class="w">        </span><span class="n">DistrhoUIServer</span><span class="o">.</span><span class="n">send_note_on</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_note_off_button_pressed</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">18</span><span class="w">        </span><span class="n">DistrhoUIServer</span><span class="o">.</span><span class="n">send_note_off</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="p">)</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_v_slider_value_changed</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">21</span><span class="w">        </span><span class="n">DistrhoUIServer</span><span class="o">.</span><span class="n">set_parameter_value</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_on_check_button_toggled</span><span class="p">(</span><span class="n">toggled_on</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="linenos">24</span><span class="w">        </span><span class="n">DistrhoUIServer</span><span class="o">.</span><span class="n">set_state_value</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">str</span><span class="p">(</span><span class="n">toggled_on</span><span class="p">))</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">    </span><span class="o">...</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Why Godot-LV2/VST3-Host?</h1></header>
+                
+                
+                    <section class="slide-content"><p><strong>Use Existing Audio Plugins in Godot</strong> —  Godot can leverage existing <strong>audio plugins</strong> (LV2, VST3) to generate audio in real time.</p>
+<p><strong><code>Goal</code>: Create and Use Audio Plugins within Godot</strong> —  By combining <strong>Godot-Csound</strong> with <strong>Godot-Distrho</strong>, it is now possible to write <strong>audio plugins</strong> that can be used both in <strong>Godot</strong> and in DAWs.</p>
+<p><strong>Why It Matters</strong> —<br />
+Developers can create audio in their favorite DAW using <strong>audio plugins</strong> and then bring those same tools and workflows into <strong>Godot</strong>.</br>
+This also makes it possible to leverage existing open-source <strong>audio plugins</strong> in games, enabling interactive and procedural audio using only open-source software.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>How I Used AI for the Godot Audio Stack</h1></header>
+                
+                
+                    <section class="slide-content"><h2>Architect-First Paradigm</h2>
+<p>Iterate on complex system architectures in a purely conceptual space. Design systems and simulate different implementations before writing code.  Identify potential problems and pitfalls before spending time implementing them.</p>
+<h2>Strategy and Planning</h2>
+<p>Refine ideas, explore tradeoffs, and improve leverage beyond implementation alone.</p>
+<h2>Software Development</h2>
+<p>Accelerate onboarding with new frameworks and technology stacks.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Demo</h1></header>
+                
+                
+                    <section class="slide-content"><p><img alt="godot_synths" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/images/godot-synths.png" />
+<img alt="github_synths" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/images/github-synths.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+    <!-- Javascripts -->
+        
+        <script type="text/javascript" src="file:///home/wmendiza/source/presentations/more-human-than-human-2026/theme/js/slides.js"></script>
+        
+        
+    <!-- /Javascripts -->
+
+	<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+</body>
+</html>
