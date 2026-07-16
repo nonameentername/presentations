@@ -151,8 +151,8 @@ To show how these projects work together, I’ll finish with a Godot demo that:
 		var csound: CsoundInstance
 
 		func _ready():
-		CsoundServer.csound_layout_changed.connect(csound_layout_changed)
-		CsoundServer.csound_ready.connect(csound_ready)
+			CsoundServer.csound_layout_changed.connect(csound_layout_changed)
+			CsoundServer.csound_ready.connect(csound_ready)
 
 		func csound_layout_changed():
 			csound = CsoundServer.get_csound("Main")
