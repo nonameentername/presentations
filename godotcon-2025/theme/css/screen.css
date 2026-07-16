@@ -60,7 +60,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    overflow: hidden;
+    overflow: visible;
     padding: 10px 120px 0;
     #background-image: linear-gradient(to right, #ffffff00, #ffffffcc);
     #width: 1124px;

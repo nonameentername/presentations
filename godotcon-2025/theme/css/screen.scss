@@ -38,7 +38,7 @@ body {
 		position:absolute;
 		top:0;
 		left:0;
-		overflow:hidden;
+		overflow:visible;
 		padding:$top $sides 0;
 		width:$width - $sides * 2;
 		height:$height - $top;

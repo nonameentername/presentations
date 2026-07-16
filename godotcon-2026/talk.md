@@ -12,20 +12,20 @@
 # Introduction
 
 Hi, I'm **Werner**. I'm a full-time game developer, software engineer, artist and musician. 
-I created **godot-csound**, **godot-lv2-host**, **godot-vst3-host**, and **godot-distrho** - projects focused on real-time synthesis, plugin hosting, and interactive audio in **Godot**.
+I created **godot-csound**, **godot-lv2-host**, **godot-vst3-host**, and **godot-distrho** — projects focused on real-time synthesis, plugin hosting, and interactive audio in **Godot**.
 
-I’ve been a hobbyist indie game developer for over 20 years, and experience professionally as a software engineer building and maintaining micro-services at scale.
+I’ve been a hobbyist indie game developer for over 20 years, and I have professional experience as a software engineer building and maintaining microservices at scale.
 
 ![github](theme/images/github.svg)
-![github_star](theme/images/github.svg)
+![github_link](theme/images/github.svg)
 
 ---
 
-## Background: How game audio is usually handled
+## Background - How game audio is usually handled
 
-Musicians use instruments, audio plugins and a digital audio workstation to create music and sound effects.  The audio is then exported as a wave file and imported into **Godot**.
+Musicians use instruments, audio plugins and a digital audio workstation to create music and sound effects.  The audio is then exported as a WAV file and imported into **Godot**.
 
-In **Godot** the imported sound files, music loops, one-shoot effects, volume changes and crossfades are used to drive the audio.
+In **Godot** the imported sound files, music loops, one-shot effects, volume changes and crossfades are used to drive the audio.
 
 This works, but the audio often stays separate from the game logic instead of becoming part of the interactive system.
 
@@ -33,37 +33,48 @@ Optionally game developers use tools like **FMOD** or **Wwise** to create sophis
 
 ---
 
-## Background: How game audio is usually handled
+## Background - How game audio is usually handled
 
 ![audio_pipeline](theme/images/audio-pipeline.png)
 
 ---
 
-## Background: How game audio is usually handled
+## Background - How game audio is usually handled
 
 
 ![ardour_01](theme/images/ardour-01.png)
 
 ---
 
-## Background: How game audio is usually handled
+## Background - How game audio is usually handled
 
 
 ![ardour_02](theme/images/ardour-02.png)
 
 ---
 
-## The Vision: Extending Godot’s audio possibilities
+## The Vision - Extending Godot’s audio possibilities
 
 Extend **Godot** by using existing audio libraries via **GDExtensions** and add functionality that brings **Godot** closer in features to a digital audio workstation and audio plugin development environment.
 
 Allow **Godot** to be used to create audio plugins, host existing audio plugins and expose the most important features that drive the audio during music creation in a DAW with a focus on dynamic audio playback inside **Godot**.
 
-Expose these new audio features via **GDScript** to allow game events to update the audio and allow for easy to use integration in the **Godot** editor.
+Expose these new audio features via **GDScript** to allow game events to update the audio and allow for easy-to-use integration in the **Godot** editor.
 
 ---
 
-## Integration: Extending Godot’s audio possibilities
+## The Vision - Extending Godot’s audio possibilities
+
+To show how these projects work together, I’ll finish with a Godot demo that:
+
+* Changes musical layers as the player moves between areas.
+* Applies real-time effects based on the player's movement and location.
+* Increases musical intensity during gameplay.
+* Exposes audio parameters and controls that can be adjusted in real time.
+
+---
+
+## Integration - Extending Godot’s audio possibilities
 
 **godot-csound** for synthesis, procedural/interactive sound, dynamic score and programmable instruments and events.
 
@@ -75,19 +86,19 @@ Expose these new audio features via **GDScript** to allow game events to update 
 
 ---
 
-## Integration: godot-csound
+## Integration - godot-csound
 
 **godot-csound** is a **GDExtension** that exposes **Csound's** functionality to **Godot** and supports the following platforms: **Windows**, **macOS**, **iOS**, **Android**, **Linux**, and **WebAssembly**. 
 
 **Csound** is a powerful, open-source audio synthesis and signal processing system, developed over decades by an incredible community of composers, developers, and researchers.
 
-**Csound** uses **csd** files to define instruments, **Csound** options and score events, it also exposes an api to dynamically create instruments, modify the score and trigger real-time midi events.
+**Csound** uses **csd** files to define instruments, **Csound** options and score events, it also exposes an API to dynamically create instruments, modify the score and trigger real-time MIDI events.
 
-![godot_csound](theme/images/godot-csound.svg)
+![github_link](theme/images/godot-csound.svg)
 
 ---
 
-## Integration: godot-csound
+## Integration - godot-csound
 
 ![godot_csound_editor](theme/images/godot-csound.png)
 
@@ -136,8 +147,8 @@ Expose these new audio features via **GDScript** to allow game events to update 
 		var csound: CsoundInstance
 
 		func _ready():
-            CsoundServer.csound_layout_changed.connect(csound_layout_changed)
-            CsoundServer.csound_ready.connect(csound_ready)
+		CsoundServer.csound_layout_changed.connect(csound_layout_changed)
+		CsoundServer.csound_ready.connect(csound_ready)
 
 		func csound_layout_changed():
 			csound = CsoundServer.get_csound("Main")
@@ -154,7 +165,7 @@ Expose these new audio features via **GDScript** to allow game events to update 
 
 ---
 
-## Integration: godot-lv2-host
+## Integration - godot-lv2-host
 
 **godot-lv2-host** is a **GDExtension** that allows using **LV2** audio plugins in **Godot** and supports the following platforms: **Windows**, **macOS** and **Linux**.
 
@@ -164,17 +175,17 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 **godot-lv2-host** allows using all the existing open-source **LV2** audio plugins in **Godot**.
 
-![godot_lv2_host](theme/images/godot-lv2-host.svg)
+![github_link](theme/images/godot-lv2-host.svg)
 
 ---
 
-## Integration: godot-lv2-host
+## Integration - godot-lv2-host
 
 ![godot_lv2_host_01](theme/images/godot-lv2-host-01.png)
 
 ---
 
-## Integration: godot-lv2-host
+## Integration - godot-lv2-host
 
 ![godot_lv2_host_02](theme/images/godot-lv2-host-02.png)
 
@@ -193,15 +204,15 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
             Lv2Server.lv2_ready.connect(lv2_ready)
 
 		func lv2_ready(name):
-            amsynth = Lv2Server.get_instance(name)
-            amsynth.send_input_control_channel(VOLUME, 1)
+			amsynth = Lv2Server.get_instance(name)
+			amsynth.send_input_control_channel(VOLUME, 1)
 
 		func _on_check_button_toggled(toggled_on: bool):
-            var bus = 0
-            var channel = 0
-            var note = 60
-            var velocity = 90
-            
+			var bus = 0
+			var channel = 0
+			var note = 60
+			var velocity = 90
+
 			if toggled_on:
 				amsynth.note_on(bus, channel, note, velocity)
 			else:
@@ -209,7 +220,7 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 ---
 
-## Integration: godot-vst3-host
+## Integration - godot-vst3-host
 
 **godot-vst3-host** is a **GDExtension** that allows using **VST3** audio plugins in **Godot** and supports the following platforms: **Windows**, **macOS** and **Linux**.
 
@@ -219,11 +230,11 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 **godot-vst3-host** allows using thousands of existing commercial and freeware **VST3** audio plugins in **Godot**.
 
-![godot_vst3](theme/images/godot-vst3-host.svg)
+![github_link](theme/images/godot-vst3-host.svg)
 
 ---
 
-## Integration: godot-vst3-host
+## Integration - godot-vst3-host
 
 ![godot_vst3_host](theme/images/godot-vst3-host.png)
 
@@ -231,26 +242,26 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 ## VST3 host in GDScript
 
-    !gdscript
+	!gdscript
 
 		extends Node2D
 		var amsynth: Vst3Instance
 
-        const VOLUME = 462
+		const VOLUME = 462
 
 		func _ready():
-            Vst3Server.vst3_ready.connect(vst3_ready)
+			Vst3Server.vst3_ready.connect(vst3_ready)
 
 		func vst3_ready(name):
-            amsynth = Vst3Server.get_instance(name)
-            amsynth.send_input_parameter_channel(VOLUME, 1)
+			amsynth = Vst3Server.get_instance(name)
+			amsynth.send_input_parameter_channel(VOLUME, 1)
 
 		func _on_check_button_toggled(toggled_on: bool):
-            var bus = 0
-            var channel = 0
-            var note = 60
-            var velocity = 90
-            
+			var bus = 0
+			var channel = 0
+			var note = 60
+			var velocity = 90
+
 			if toggled_on:
 				amsynth.note_on(bus, channel, note, velocity)
 			else:
@@ -258,7 +269,7 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 ---
 
-## Integration: godot-distrho
+## Integration - godot-distrho
 
 **godot-distrho** is a **GDExtension** that uses **DISTRHO** to allow building **LV2** and **VST3** audio plugins using **Godot** and supports the following platforms: **Windows**, **macOS** and **Linux**.
 
@@ -266,27 +277,29 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 **godot-distrho** bridges this workflow with **Godot**, allowing **Godot** projects to become part of an audio plugin system while **DISTRHO** handles the plugin format layer.
 
+![github_link](theme/images/godot-distrho.svg)
+
 ---
 
-## Integration: godot-distrho
+## Integration - godot-distrho
 
 ![godot_distrho_ardour](theme/images/godot-distrho-ardour.png)
 
 ---
 
-## Integration: godot-distrho
+## Integration - godot-distrho
 
 ![godot_distrho_patch](theme/images/godot-distrho-patch.png)
 
 ---
 
-## Integration: godot-distrho
+## Integration - godot-distrho
 
 ![godot_distrho_carla](theme/images/godot-distrho-carla-01.png)
 
 ---
 
-## Integration: godot-distrho
+## Integration - godot-distrho
 
 ![godot_distrho_carla](theme/images/godot-distrho-carla-02.png)
 
@@ -294,91 +307,101 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 
 ## DISTRHO in GDScript
 
-    !gdscript
-        #distrho_ui_instance.gd
+	!gdscript
+		#distrho_ui_instance.gd
 
-        extends DistrhoUIInstance
+		extends DistrhoUIInstance
 
-        func _init() -> void:
-            DistrhoUIServer.set_distrho_ui(self)
-
----
-
-## DISTRHO in GDScript
-
-    !gdscript
-        #distrho_plugin_instance.gd
-
-        extends DistrhoPluginInstance
-
-        func _init() -> void:
-            DistrhoPluginServer.set_distrho_plugin(self)
-
-        func get_name() -> String:
-            return "GodotSynth"
-
-        func get_label() -> String:
-            return "godot-synth"
-
-        func get_description() -> String:
-            return "Godot Synth"
-
-        func get_parameters() -> Array:
-            return parameters.map(DistrhoPluginServer.create_parameter)
-
-        func get_input_ports() -> Array:
-            return input_ports.map(DistrhoPluginServer.create_audio_port)
-
-        func get_output_ports() -> Array:
-            return output_ports.map(DistrhoPluginServer.create_audio_port)
+		func _init() -> void:
+			DistrhoUIServer.set_distrho_ui(self)
 
 ---
 
 ## DISTRHO in GDScript
 
-    !gdscript
-        #distrho_ui.gd
+	!gdscript
+		#distrho_plugin_instance.gd
 
-        extends Node2D
+		extends DistrhoPluginInstance
 
-        func _ready() -> void:
-            DistrhoUIServer.parameter_changed.connect(_on_parameter_changed)
-            DistrhoUIServer.state_changed.connect(_on_state_changed)
+		func _init() -> void:
+			DistrhoPluginServer.set_distrho_plugin(self)
 
-        func _input(input_event: InputEvent) -> void:
-            if input_event is InputEventMIDI:
-                var midi_event: InputEventMIDI = input_event
-                if midi_event.message == MIDI_MESSAGE_NOTE_ON:
-                    DistrhoUIServer.send_note_on(midi_event.channel,
-                                                 midi_event.pitch,
-                                                 midi_event.velocity)
-                if midi_event.message == MIDI_MESSAGE_NOTE_OFF:
-                    DistrhoUIServer.send_note_off(midi_event.channel, midi_event.pitch)
+		func get_name() -> String:
+			return "GodotSynth"
 
-        func _on_parameter_changed(index: int, value: float) -> void:
-            print("UI: Parameter Changed: index: ", index, " value: ", value)
+		func get_label() -> String:
+			return "godot-synth"
 
-        func _on_state_changed(key: String, value: String) -> void:
-            print("UI: State Changed: index: ", key, " value: ", value)
+		func get_description() -> String:
+			return "Godot Synth"
 
-        func _on_amsynth_parameter_changed(parameter: int, value: float) -> void:
-            print ("parameter ", parameter, " value = ", value)
-            DistrhoUIServer.set_parameter_value(parameter, value)
+		func get_parameters() -> Array:
+			return parameters.map(DistrhoPluginServer.create_parameter)
+
+		func get_input_ports() -> Array:
+			return input_ports.map(DistrhoPluginServer.create_audio_port)
+
+		func get_output_ports() -> Array:
+			return output_ports.map(DistrhoPluginServer.create_audio_port)
+
+---
+
+## DISTRHO in GDScript
+
+	!gdscript
+		#distrho_ui.gd
+
+		extends Node2D
+
+		func _ready() -> void:
+			DistrhoUIServer.parameter_changed.connect(_on_parameter_changed)
+			DistrhoUIServer.state_changed.connect(_on_state_changed)
+
+		func _input(input_event: InputEvent) -> void:
+			if input_event is InputEventMIDI:
+				var midi_event: InputEventMIDI = input_event
+				if midi_event.message == MIDI_MESSAGE_NOTE_ON:
+					DistrhoUIServer.send_note_on(midi_event.channel,
+						midi_event.pitch,
+						midi_event.velocity)
+				if midi_event.message == MIDI_MESSAGE_NOTE_OFF:
+					DistrhoUIServer.send_note_off(midi_event.channel, midi_event.pitch)
+
+		func _on_parameter_changed(index: int, value: float) -> void:
+			print("UI: Parameter Changed: index: ", index, " value: ", value)
+
+		func _on_state_changed(key: String, value: String) -> void:
+			print("UI: State Changed: index: ", key, " value: ", value)
+
+		func _on_amsynth_parameter_changed(parameter: int, value: float) -> void:
+			print ("parameter ", parameter, " value = ", value)
+			DistrhoUIServer.set_parameter_value(parameter, value)
 
 ---
 
 # godot-synths
 
 ![godot_synths](theme/images/godot-synths.png)
-![github_synths](theme/images/github-synths.svg)
+![github_link](theme/images/github-synths.svg)
 
 ---
 
-## Integration: Audio workflows and dynamic audio
+## Integration - Audio workflows and dynamic audio
 
-This integration allows for new types of workflows in audio production.
+* Compose music directly inside **Godot** and hear instruments and effects in context while interacting with the scene.
+* Build an instrument in **Godot** and export it as an **LV2** or **VST3** plugin.
+* Use the plugin in a DAW to compose music and export the resulting **MIDI** tracks.
+* Import the MIDI back into **Godot** and adapt the music dynamically during gameplay.
+* Use these tools during production, then render the final result to **WAV files** when runtime performance or platform support is a concern.
 
-Create a **Godot** audio plugin that can handle midi events.  The audio plugin is shared with a musician for composition and then the midi tracks are imported back into **Godot**.
+---
+
+## From playback to interaction
+
+* Move **Godot** from being the destination of audio to becoming part of its creation.
+* Shift from playing a recording to conducting an orchestra in real time.
+* Transform music from background wallpaper into a character that responds to the player and the story.
 
 ---
 
@@ -388,5 +411,25 @@ Create a **Godot** audio plugin that can handle midi events.  The audio plugin i
 
 ---
 
+## Future Work
+
+* Support additional plugin formats such as **CLAP**.
+* Improve plugin compatibility, performance, and platform support.
+* Expand automation, sequencing, and dynamic music tools inside **Godot**.
+* Create more seamless workflows between **Godot**, audio plugins, and digital audio workstations.
+
+---
+
+# Get involved
+
+The projects are open source and available to explore, use, and contribute to.  I’m also available for collaboration, integration work, and custom audio tooling.
+
+![github](theme/images/github.svg)
+![github_link](theme/images/github.svg)
+
+---
+
 # Questions?
 
+![github](theme/images/github.svg)
+![github_link](theme/images/github.svg)
