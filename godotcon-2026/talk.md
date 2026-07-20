@@ -82,7 +82,7 @@ To show how these projects work together, I’ll finish with a Godot demo that:
 
 **godot-distrho** for building **LV2** and **VST3** audio plugins with **Godot**.  Allows using **Godot** directly inside of a DAW as an audio plugin.
 
-**godot-synths** an example synthesizer written in **Godot** using **Csound** and **DISTRHO** that can be used in all supported platforms and also as an audio plugin in a digital audio workstation.
+**godot-synths** is example synthesizer written in **Godot** using **Csound** and **DISTRHO** that can be used in all supported platforms and also as an audio plugin in a digital audio workstation.
 
 ---
 
@@ -92,7 +92,7 @@ To show how these projects work together, I’ll finish with a Godot demo that:
 
 **Csound** is a powerful, open-source audio synthesis and signal processing system, developed over decades by an incredible community of composers, developers, and researchers.
 
-**Csound** uses **csd** files to define instruments, **Csound** options and score events, it also exposes an API to dynamically create instruments, modify the score and trigger real-time MIDI events.
+**Csound** uses **csd** files to define instruments, options, and score events. Its API can also dynamically create instruments, modify the score, and trigger real-time MIDI events.
 
 ![github_link](theme/images/godot-csound.svg)
 
@@ -428,7 +428,7 @@ Their work made these integrations possible.
 
 # Get involved
 
-The projects are open source and available to explore, use, and contribute to.  I’m also available for collaboration, integration work, and custom audio tooling.
+The projects are open source and available to explore, use, and contribute to. I’m also available for collaboration, integration work, and custom audio tooling.
 
 ![github](theme/images/github.svg)
 ![github_link](theme/images/github.svg)
