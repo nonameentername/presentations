@@ -1,5 +1,5 @@
 all:
-	landslide -t theme talk.md
+	landslide -t theme --relative --copy-theme talk.md
 
 install:
 	pip install -r requirements.txt
