@@ -284,24 +284,13 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 ## Integration - godot-distrho
 
 ![godot_distrho_ardour](theme/images/godot-distrho-ardour.png)
+![godot_synths_small](theme/images/godot-synths.png)
 
 ---
 
 ## Integration - godot-distrho
 
 ![godot_distrho_patch](theme/images/godot-distrho-patch.png)
-
----
-
-## Integration - godot-distrho
-
-![godot_distrho_carla](theme/images/godot-distrho-carla-01.png)
-
----
-
-## Integration - godot-distrho
-
-![godot_distrho_carla](theme/images/godot-distrho-carla-02.png)
 
 ---
 
@@ -408,6 +397,7 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 # Demo
 
 ![megatroid](theme/images/megatroid.png)
+![github_link](theme/images/godot-interactive-audio.svg)
 
 ---
 
@@ -417,6 +407,22 @@ Many types of plugins can be built with **LV2**, including audio effects, synthe
 * Improve plugin compatibility, performance, and platform support.
 * Expand automation, sequencing, and dynamic music tools inside **Godot**.
 * Create more seamless workflows between **Godot**, audio plugins, and digital audio workstations.
+
+---
+
+## Acknowledgments
+
+This work builds on the efforts of many open-source developers and audio communities.
+
+Special thanks to the contributors and maintainers of:
+
+* **Godot**
+* **Csound**
+* **Lilv** and the **LV2** ecosystem
+* **Steinberg VST3 SDK**
+* **DISTRHO Plugin Framework**
+
+Their work made these integrations possible.
 
 ---
 

@@ -695,6 +695,7 @@ img[alt=godot_distrho_patch] { width: 840px; position: absolute; top: 80px; left
 img[alt=godot_distrho_carla] { width: 840px; position: absolute; top: 80px; left: 100px; }
 
 img[alt=godot_synths] { width: 840px; position: absolute; top: 80px; left: 100px; }
+img[alt=godot_synths_small] { width: 620px; position: absolute; top: 200px; left: 400px; }
 
 img[alt=megatroid] { width: 840px; position: absolute; top: 120px; left: 100px; }
 img[alt=velocicode] { width: 1365px; position: absolute; top: 0px; left: 0px; }
