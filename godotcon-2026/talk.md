@@ -6,6 +6,7 @@
 ![lv2](theme/images/lv2.svg)
 ![midi](theme/images/midi.svg)
 ![distrho](theme/images/distrho.png)
+![github_link](theme/images/godotcon-2026.svg)
 
 ---
 
