@@ -83,7 +83,7 @@ To show how these projects work together, I’ll finish with a Godot demo that:
 
 **godot-distrho** for building **LV2** and **VST3** audio plugins with **Godot**.  Allows using **Godot** directly inside of a DAW as an audio plugin.
 
-**godot-synths** is example synthesizer written in **Godot** using **Csound** and **DISTRHO** that can be used in all supported platforms and also as an audio plugin in a digital audio workstation.
+**godot-synths** is an example synthesizer written in **Godot** using **Csound** and **DISTRHO** that can be used in all supported platforms and also as an audio plugin in a digital audio workstation.
 
 ---
 
