@@ -1,0 +1,889 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Small Team, Big Leverage: Using Automation to Build Games Faster</title>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow|PT+Mono' rel='stylesheet' type='text/css'>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+</head>
+<body class="list">
+    
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Small Team, Big Leverage: Using Automation to Build Games Faster</h1></header>
+                
+                
+                    <section class="slide-content"><p><img alt="tecunhuman_homepage" src="theme/images/tecunhuman-homepage.png" />
+<img alt="godot_icon" src="theme/images/godot_icon.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Hi, I'm Werner</h1></header>
+                
+                
+                    <section class="slide-content"><p>I'm a full-time <strong>indie game developer, software engineer, artist, and musician</strong>.</p>
+<p>I've been a hobbyist indie game developer for over 20 years, and I have professional experience as a software engineer building and maintaining microservices at scale.</p>
+<p>I created and maintain <strong>godot-csound</strong>, <strong>godot-lv2-host</strong>, <strong>godot-vst3-host</strong>, and <strong>godot-distrho</strong>. These are open-source projects for real-time audio synthesis, plugin hosting, and interactive audio in <strong>Godot</strong>.</p>
+<p>I'm currently working on my first commercial game release.</p>
+<p><img alt="qrcode" src="theme/images/github.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Building leverage</h2></header>
+                
+                
+                    <section class="slide-content"><p>How I built leverage as a solo developer, in three different ways:</p>
+<ol>
+<li><strong>Integrate existing ecosystems:</strong> reuse libraries and tools instead of rebuilding.<br><span class="how">Godot can synthesize audio, create plugins, and use thousands of existing ones.</span></li>
+<li><strong>Automate:</strong> avoid repetitive manual work and free up time for the game.<br><span class="how">Turn repetitive build, art, and music workflows into automated systems.</span></li>
+<li><strong>Move up the stack:</strong> make tools easier to use, so development takes less time.<br><span class="how">Build audio plugins in GDScript without low-level programming, compilation, or build systems.</span></li>
+</ol></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>This is the map for the talk. Most of the time goes to automation, because that is where most of my leverage came from. Integrating existing ecosystems is how the story starts, and moving up the stack is where it leads.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>I wanted dynamic music in my game</h2></header>
+                
+                
+                    <section class="slide-content"><p>For the game I am building, I wanted music that could react to the player, the world, and the story. I did not begin with a complete architecture; I followed the problem one step at a time:</p>
+<ol>
+<li>I started with <strong>FluidSynth</strong> to play MIDI using SoundFonts.</li>
+<li>I integrated <strong>Csound</strong> when I needed more control over synthesis and sequencing.</li>
+<li>I began creating instruments in Csound for the sounds my game needed.</li>
+<li>I built <strong>godot-distrho</strong> to export them as audio plugins and allow musicians to use the same audio engine in their DAWs.</li>
+</ol>
+<p>Once Godot could build plugins, it felt natural to host them too, and the idea of loading any plugin came up.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>I didn't need to build every instrument</h2></header>
+                
+                
+                    <section class="slide-content"><p>The music-production ecosystem already had thousands of mature synthesizers and effects.
+Instead of recreating them in Csound, I could make <strong>Godot host the plugins people already use</strong>. That led to:</p>
+<ul>
+<li><strong>godot-lv2-host</strong> for LV2 plugins</li>
+<li><strong>godot-vst3-host</strong> for VST3 plugins</li>
+</ul>
+<p>The highest-leverage solution was not another instrument. It was a bridge to an ecosystem: every compatible plugin became an instrument or effect I could use instead of building myself.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>The first integration created a reusable path</h2></header>
+                
+                
+                    <section class="slide-content"><p><img src="theme/images/platform-matrix.png" alt="Platform build matrix" width="1000"></p>
+<p>Each library has its own build system, dependencies, and platform-specific problems. After solving the first integration, I could reuse the code, knowledge, and methodology, making each later project faster to build and support.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>The fastest work is work no one has to do</h2></header>
+                
+                
+                    <section class="slide-content"><p>Working faster makes a task cheaper.<br>
+Automation makes it disappear.</p>
+<p>Creating the automation took real upfront work. Today, a pull request starts a pipeline that builds, tests, packages, and publishes every supported target, with no human in the loop.</p>
+<p>That time comes back on every release, on every project, for as long as the system runs. <strong>That is leverage: it keeps paying after you stop working.</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Every supported combination must be configured, built, tested, packaged, and published. Repeating that manually across every project and platform would be impractical for one developer and difficult for a team to maintain. I applied practices I learned at large companies: reproducible environments, continuous integration, automated validation, and versioned releases.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Four pull requests. Fifty-seven jobs.</h2></header>
+                
+                
+                    <section class="slide-content"><p><img alt="pipeline_parallel" src="theme/images/godot-4.8-pipeline.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Updating to Godot 4.8 meant one small pull request per project, done one after another. Each pull request starts the same workflows: 57 jobs across the four repositories build every platform, verify the extension in Godot, and publish the release, all in parallel. My part ends when the pull request is open.</p>
+<p>For scale: the real Godot 4.7 update on July 4, 2026 used 15.7 hours of runner time across those 57 jobs.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Insight: small teams can create leverage</h2></header>
+                
+                
+                    <section class="slide-content"><ol>
+<li><strong>Use leverage:</strong> Build on existing tools, libraries, platforms, and knowledge.</li>
+<li><strong>Build leverage:</strong> Turn what you learn and repeat into reusable code, documented processes, and automation.</li>
+<li><strong>Share leverage:</strong> Package and publish your work so someone else can start where you finished.</li>
+</ol>
+<p>The cycle compounds. Shared work becomes the foundation for the next person, project, or tool.</p>
+<p>This is how I applied all three as one indie developer.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Use leverage by building on a shared stack</h2></header>
+                
+                
+                    <section class="slide-content"><p>Large companies do not build products from scratch. They combine shared, proven layers, and I applied the same approach:</p>
+<ul>
+<li><strong>Engine interface:</strong> Godot and GDExtension</li>
+<li><strong>Audio ecosystems:</strong> Csound, Lilv and LV2, VST3 SDK, and DISTRHO</li>
+<li><strong>Cross-platform builds:</strong> Scons, CMake, vcpkg, MinGW, and osxcross</li>
+<li><strong>Reproducible automation:</strong> Docker and GitHub Actions</li>
+</ul>
+<p>The advantage is not owning every layer. It is knowing <strong>what to reuse, what to standardize, and where custom work creates unique value</strong>.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>At the large companies where I worked, teams combined operating systems, containers, languages, runtimes, libraries, databases, build tools, package systems, and testing, deployment, and monitoring tools. Because teams shared tools and methodologies, improvements to the stack created leverage across many people, services, and future projects.</p>
+<p>My custom work is the layer that connects these systems to Godot, then builds, tests, packages, and releases that connection reliably. I did not need to recreate the engine, audio libraries, compilers, or automation platform.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Build leverage by turning repetition into a system</h2></header>
+                
+                
+                    <section class="slide-content"><ol>
+<li><strong>Notice:</strong> Find repeated work, friction, or failure.</li>
+<li><strong>Describe:</strong> Write the task as explicit steps and rules.</li>
+<li><strong>Execute:</strong> Turn those steps into code or a script.</li>
+<li><strong>Reproduce:</strong> Control the environment, inputs, and outputs.</li>
+<li><strong>Automate:</strong> Trigger the process without manual intervention.</li>
+<li><strong>Share:</strong> Package and document it so others can reuse it.</li>
+</ol>
+<p>Each step reduces the amount of knowledge and effort that <strong>must remain in one person's head</strong>.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>The leverage is both reusable code and understanding. A large part of the build and release system carries into the next project, while experience helps me avoid solving the same problems again.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Notice: what work keeps repeating?</h2></header>
+                
+                
+                    <section class="slide-content"><p>As the projects and platforms multiplied, the same work kept returning:</p>
+<ul>
+<li>Install and configure the development environment for each target platform.</li>
+<li>Build each upstream library for every operating system and architecture.</li>
+<li>Configure and compile the Godot extension against that library.</li>
+<li>Test the integration on the target platform.</li>
+<li>Package the files in the structure Godot expects.</li>
+<li>Publish compatible, versioned releases.</li>
+</ul>
+<p>Every new project began with similar problems, and every manual process risked inconsistent results.<br>
+<strong>If work repeats or must be performed exactly, it is a candidate for automation.</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>These are the steps I used to do by hand for every library, platform, and release. Each one is a chance to forget something or get a slightly different result.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Describe: make the process explicit</h2></header>
+                
+                
+                    <section class="slide-content"><p>Before automating the work, define what the process needs:</p>
+<ul>
+<li><strong>Inputs:</strong> Library version, Godot version, target platform, CPU architecture, and build configuration</li>
+<li><strong>Steps:</strong> Install the environment, build the library, compile the extension, test it, and package it</li>
+<li><strong>Outputs:</strong> A versioned artifact with the files and directory structure Godot expects</li>
+<li><strong>Success criteria:</strong> The build completes, the extension loads, the tests pass, and the package is ready to publish</li>
+</ul>
+<p><strong>A process must be understood before it can be automated reliably.</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Writing the process down exposes missing steps, hidden assumptions, and work that only exists in one person's memory.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Execute: turn the process into code</h2></header>
+                
+                
+                    <section class="slide-content"><p>Replace instructions with commands that perform the work:</p>
+<ul>
+<li>Platform scripts produce the debug and release builds.</li>
+<li><strong>vcpkg</strong> and <strong>CMake</strong> build the library and dependencies; <strong>SCons</strong> builds the Godot extension.</li>
+<li>The scripts encode architectures, compiler options, and packaging steps.</li>
+<li>The <strong>Makefile</strong> provides consistent local entry points such as <code>make ubuntu</code>, <code>make mingw</code>, and <code>make osxcross</code>.</li>
+</ul>
+<p>Instead of remembering every step, I run one Make target. The scripts become reusable code and the source of truth for local and automated builds.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h2>Code example: platform build script</h2></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="c1">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="c1"># file: ./platform/ubuntu/build_release.sh</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="nv">dir</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>.<span class="k">)</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nv">src_dir</span><span class="o">=</span><span class="nv">$dir</span>/modules/csound
+<span class="linenos"> 6</span><span class="w">    </span><span class="nv">build_dir</span><span class="o">=</span><span class="nv">$src_dir</span>/build/linux/release
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$build_dir</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$build_dir</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span>cmake<span class="w"> </span>-DCUSTOM_CMAKE<span class="o">=</span><span class="nv">$src_dir</span>/platform/linux/custom.cmake<span class="w"> </span><span class="se">\</span>
+<span class="linenos">12</span><span class="w">        </span>-DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span><span class="nv">$dir</span>/addons/csound/bin/linux/release<span class="w"> </span><span class="se">\</span>
+<span class="linenos">13</span><span class="w">        </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="linenos">14</span><span class="w">        </span><span class="nv">$src_dir</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="w">    </span>make
+<span class="linenos">17</span><span class="w">    </span>make<span class="w"> </span>install
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$dir</span>
+<span class="linenos">20</span><span class="w">    </span>scons<span class="w"> </span><span class="nv">platform</span><span class="o">=</span>linux<span class="w"> </span><span class="nv">target</span><span class="o">=</span>template_release
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Reproduce: control the environment</h2></header>
+                
+                
+                    <section class="slide-content"><p>Containers make the scripts independent of one development machine:</p>
+<ul>
+<li>A <strong>Docker image</strong> packages the compiler, SDK, build tools, dependencies, and environment for each target.</li>
+<li>A Linux host can build Ubuntu, Windows with MinGW, macOS with osxcross, iOS with ioscross, Android, and Web targets.</li>
+<li>Make mounts the same source into each container and runs the same platform scripts.</li>
+<li>Shared images keep local builds and GitHub Actions in the same environment.</li>
+<li>Monthly rebuilds keep dependencies current; CI catches breakage early.</li>
+</ul>
+<p><strong>Same source + same script + same environment = reproducible build</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h2>Code example: reproducible Docker image</h2></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="c1"># file: godot-build-containers/platform/ubuntu/Dockerfile</span>
+<span class="linenos"> 2</span><span class="w">    </span>FROM<span class="w"> </span>registry.gitlab.steamos.cloud/steamrt/steamrt4/sdk<span class="w"> </span>AS<span class="w"> </span>base-image
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="w">    </span>RUN<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 5</span><span class="w">        </span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 6</span><span class="w">        </span>git<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 7</span><span class="w">        </span>python3<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 8</span><span class="w">        </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 9</span><span class="w">        </span>zip<span class="w"> </span><span class="se">\</span>
+<span class="linenos">10</span><span class="w">        </span>curl<span class="w"> </span><span class="se">\</span>
+<span class="linenos">11</span><span class="w">        </span>unzip<span class="w"> </span><span class="se">\</span>
+<span class="linenos">12</span><span class="w">        </span>pkg-config<span class="w"> </span><span class="se">\</span>
+<span class="linenos">13</span><span class="w">        </span>autoconf<span class="w"> </span><span class="se">\</span>
+<span class="linenos">14</span><span class="w">        </span>libtool<span class="w"> </span><span class="se">\</span>
+<span class="linenos">15</span><span class="w">        </span>flex<span class="w"> </span><span class="se">\</span>
+<span class="linenos">16</span><span class="w">        </span>bison
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="w">    </span>FROM<span class="w"> </span>registry.gitlab.steamos.cloud/steamrt/steamrt4/sdk
+<span class="linenos">19</span><span class="w">    </span>COPY<span class="w"> </span>--from<span class="o">=</span>base-image<span class="w"> </span>/<span class="w"> </span>/
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">    </span><span class="c1"># file: godot-csound/platform/ubuntu/Dockerfile</span>
+<span class="linenos">22</span><span class="w">    </span>FROM<span class="w"> </span>ghcr.io/nonameentername/godot-ubuntu
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h2>Code example: run the build in Docker</h2></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c">    # file: ./Makefile</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="w">    </span>all:<span class="w"> </span>ubuntu<span class="w"> </span>mingw<span class="w"> </span>osxcross
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="w">    </span>docker-ubuntu:
+<span class="linenos"> 6</span><span class="w">        </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>godot-csound-ubuntu<span class="w"> </span>./platform/ubuntu
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span>shell-ubuntu:<span class="w"> </span>docker-ubuntu
+<span class="linenos"> 9</span><span class="w">        </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">CURDIR</span><span class="si">}</span>:<span class="si">${</span><span class="nv">CURDIR</span><span class="si">}</span><span class="w"> </span>-w<span class="w"> </span><span class="si">${</span><span class="nv">CURDIR</span><span class="si">}</span><span class="w"> </span>godot-csound-ubuntu<span class="w"> </span><span class="si">${</span><span class="nv">SHELL_COMMAND</span><span class="si">}</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span>ubuntu:<span class="w"> </span>ubuntu-debug<span class="w"> </span>ubuntu-release
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="w">    </span>ubuntu-debug:
+<span class="linenos">14</span><span class="w">        </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="w"> </span>shell-ubuntu<span class="w"> </span><span class="nv">SHELL_COMMAND</span><span class="o">=</span><span class="s1">&#39;./platform/ubuntu/build_debug.sh&#39;</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="w">    </span>ubuntu-release:
+<span class="linenos">17</span><span class="w">        </span><span class="k">$(</span>MAKE<span class="k">)</span><span class="w"> </span>shell-ubuntu<span class="w"> </span><span class="nv">SHELL_COMMAND</span><span class="o">=</span><span class="s1">&#39;./platform/ubuntu/build_release.sh&#39;</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Automate: remove the manual trigger</h2></header>
+                
+                
+                    <section class="slide-content"><p>GitHub Actions becomes the operator of the reproducible process:</p>
+<ul>
+<li>A pull request or change to <code>main</code> starts the workflow.</li>
+<li>Parallel jobs run the same containers and scripts for each platform, architecture, and build type.</li>
+<li>Linux, macOS, and Windows jobs launch Godot headlessly and verify the integration produces the expected result.</li>
+<li>Build artifacts are collected only after their required jobs succeed.</li>
+<li>A successful change on <code>main</code> creates a versioned archive and publishes a GitHub release.</li>
+</ul>
+<p>Local builds and CI use the same build logic. Automation changes <strong>when</strong> it runs, not <strong>how</strong> it runs.</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h2>Code example: GitHub Actions runs the same build</h2></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="c1"># file: .github/workflows/builds.yml</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">jobs</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="w">      </span><span class="nt">linux-build</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Linux/Ubuntu build</span>
+<span class="linenos"> 5</span><span class="w">        </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="linenos"> 6</span><span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="linenos"> 7</span><span class="w">          </span><span class="nt">VERSION</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="nt">steps</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build godot-csound (Release)</span>
+<span class="linenos">10</span><span class="w">            </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nonameentername/docker-run-action@v3</span>
+<span class="linenos">11</span><span class="w">            </span><span class="nt">with</span><span class="p">:</span>
+<span class="linenos">12</span><span class="w">              </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nonameentername/godot-csound-ubuntu:${{ env.VERSION }}</span>
+<span class="linenos">13</span><span class="w">              </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="linenos">14</span><span class="w">                </span><span class="no">-v ${{ github.workspace }}:${{ github.workspace }}</span>
+<span class="linenos">15</span><span class="w">                </span><span class="no">--workdir ${{ github.workspace }}</span>
+<span class="linenos">16</span><span class="w">              </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="linenos">17</span><span class="w">                </span><span class="no">./platform/ubuntu/build_release.sh</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h2>Validation: a build is not finished until it runs</h2></header>
+                
+                
+                    <section class="slide-content"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="c1"># file: ./.github/workflows/builds.yml</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="nt">jobs</span><span class="p">:</span>
+<span class="linenos"> 3</span><span class="w">      </span><span class="nt">verify-linux-build</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verify Linux/Ubuntu build</span>
+<span class="linenos"> 5</span><span class="w">        </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="linenos"> 6</span><span class="w">        </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linux-build</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="nt">steps</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Godot</span>
+<span class="linenos"> 9</span><span class="w">            </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chickensoft-games/setup-godot@v2</span>
+<span class="linenos">10</span><span class="w">            </span><span class="nt">with</span><span class="p">:</span>
+<span class="linenos">11</span><span class="w">              </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.7.0</span>
+<span class="linenos">12</span><span class="w">              </span><span class="nt">use-dotnet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">13</span><span class="w">              </span><span class="nt">include-templates</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Godot import</span>
+<span class="linenos">16</span><span class="w">            </span><span class="c1"># First import registers the extension; assets can&#39;t load yet</span>
+<span class="linenos">17</span><span class="w">            </span><span class="nt">continue-on-error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">18</span><span class="w">            </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="linenos">19</span><span class="w">              </span><span class="no">godot --headless --import</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verify godot-csound</span>
+<span class="linenos">22</span><span class="w">            </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="linenos">23</span><span class="w">              </span><span class="no">godot --headless -s csound_run_scene.gd --quit-after 300 2&gt; /dev/null \</span>
+<span class="linenos">24</span><span class="w">                </span><span class="no">| grep &#39;output result is 4&#39;</span>
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Automation can run locally too</h2></header>
+                
+                
+                    <section class="slide-content"><p>The <strong>TecunHuman workspace</strong> packages a GitHub-like development stack that I can run locally:</p>
+<ul>
+<li><strong>Forgejo</strong> provides local Git hosting, while <strong>Python scripts</strong> create its organizations and repositories.</li>
+<li>An <strong>Actions runner</strong> executes automated workflows.</li>
+<li>Shared <strong>build containers</strong> provide cross-platform Godot environments, with an example project demonstrating adoption.</li>
+<li><strong>rsync backups</strong> preserve the repositories and development infrastructure.</li>
+</ul>
+<p>A new project can inherit source control, automated builds, runners, and development environments instead of assembling them again.<br>
+<strong>The development platform becomes reusable leverage.</strong></p>
+<p><img alt="tecunhuman_workspace" src="theme/images/tecunhuman_workspace.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Share: make your leverage reusable</h2></header>
+                
+                
+                    <section class="slide-content"><p>Sharing means removing integration work for the next developer:</p>
+<ul>
+<li>Versioned packages provide prebuilt GDExtensions for every supported platform.</li>
+<li>Documentation and examples explain how to use the integration without understanding its internals.</li>
+<li>Container images and build scripts preserve how the binaries were produced.</li>
+<li>Open source provides a working reference, similar to joining a large company and gaining access to its existing codebase.</li>
+</ul>
+<p>Developers can use Csound and existing audio plugins without repeating the engine integration or cross-platform build work.<br>
+<strong>Solve it once, share it, and it becomes leverage in someone else's stack.</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide has_code">
+            <div>
+                
+                    <header><h2>Install every addon with one command</h2></header>
+                
+                
+                    <section class="slide-content"><p><strong>godot-package</strong> is a lightweight GDScript dependency manager. Each project pins an exact GitHub release tag for every addon, then one headless command installs the same versions locally and in automation.</p>
+<div class="highlight"><pre><span></span><span class="linenos">1</span><span class="w">    </span><span class="c1"># file: quetzalcoatl/package.gd</span>
+<span class="linenos">2</span><span class="w">    </span><span class="k">extends</span><span class="w"> </span><span class="s2">&quot;res://addons/godot-package/package.gd&quot;</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="w">    </span><span class="k">func</span><span class="w"> </span><span class="n">_requirements</span><span class="p">():</span>
+<span class="linenos">5</span><span class="w">        </span><span class="n">dependency</span><span class="p">(</span><span class="s2">&quot;nonameentername/godot-csound&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v0.1.0-beta.188&quot;</span><span class="p">})</span>
+<span class="linenos">6</span><span class="w">        </span><span class="n">dependency</span><span class="p">(</span><span class="s2">&quot;nonameentername/godot-lv2-host&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v0.1.0-beta.9&quot;</span><span class="p">})</span>
+<span class="linenos">7</span><span class="w">        </span><span class="n">dependency</span><span class="p">(</span><span class="s2">&quot;nonameentername/godot-vst3-host&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v0.1.0-beta.10&quot;</span><span class="p">})</span>
+</pre></div>
+
+<p>Install dependencies:</p>
+<div class="highlight"><pre><span></span><span class="linenos">1</span><span class="w">    </span>godot<span class="w"> </span>--headless<span class="w"> </span>-s<span class="w"> </span>package.gd<span class="w"> </span>install
+</pre></div>
+</section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Move up the stack: plugins made in Godot</h2></header>
+                
+                
+                    <section class="slide-content"><p>With the audio integration work completed, automated, and packaged, developers can build at a higher level. Tools like <strong>Cabbage</strong> turn Csound code into audio plugins. <strong>godot&#8209;distrho</strong> lets Godot developers do the same with skills they have:</p>
+<ul>
+<li>Build the instrument with GDScript, Godot scenes, and Csound.</li>
+<li>Install godot-distrho with godot-package. Prebuilt plugin templates come from its CI releases.</li>
+<li>Export <strong>LV2</strong> or <strong>VST3</strong> plugins for Linux and Windows, just like exporting a game.</li>
+</ul>
+<p><strong>No C++, no plugin SDK, no compilers. Just Godot.</strong></p>
+<p><img alt="simple_synth" src="theme/images/simple-synth.png" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Key point: the CI pipelines from earlier build the plugin templates, so the plugin author never needs compilers or SDKs. The automation is what makes moving up the stack possible.</p>
+<p>Demo: godot-distrho-example, the synth in the screenshot. Change the script, export, and load the plugin in a host.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Shared leverage in real games</h2></header>
+                
+                
+                    <section class="slide-content"><p><img alt="quetzalcoatl" src="theme/images/quetzalcoatl.png" />
+<img alt="quetzalcoatl_qrcode" src="theme/images/quetzalcoatl.svg" /></p>
+<p class="game-caption quetzalcoatl"><strong>Quetzalcoatl</strong><br>Game jam entry<br>Dynamic audio in one week</p>
+
+<p><img alt="geoicarus" src="theme/images/geoicarus-game.png" />
+<img alt="geoicarus_qrcode" src="theme/images/geoicarus.svg" /></p>
+<p class="game-caption geoicarus"><strong>Geo Icarus</strong></p>
+
+<p><img alt="melody_flow" src="theme/images/melody_flow.webp" />
+<img alt="melody_flow_qrcode" src="theme/images/melody_flow.svg" /></p>
+<p class="game-caption melody_flow"><strong>Melody Flow</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Introduce the games here; the demos follow. The dynamic music reacting to gameplay is the payoff for the problem from the start of the talk.</p>
+<p>Quetzalcoatl was a one-week game jam entry. Dynamic audio fit into a jam schedule only because the integration, builds, and releases already existed. That is leverage compounding.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Demo: Quetzalcoatl</h2></header>
+                
+                
+                    <section class="slide-content"><iframe class="video_embed" src="https://www.youtube-nocookie.com/embed/zt7ODFeZgnQ?start=60&end=106&rel=0" title="Quetzalcoatl – Godot Game Jam Gameplay" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Plays 1:00–1:46 of the gameplay video. Point out the music reacting to the game: built in one week because the audio integration already existed.</p>
+<p>Fallback link: https://www.youtube.com/watch?v=zt7ODFeZgnQ&amp;t=60</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Demo: Melody Flow</h2></header>
+                
+                
+                    <section class="slide-content"><iframe class="video_embed" src="https://www.youtube-nocookie.com/embed/55_PRX7sZ94?rel=0" title="Melody Flow Trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>Press play on the embedded trailer. Fallback link: https://www.youtube.com/watch?v=55_PRX7sZ94</p>
+<p>Have the video open in a browser tab before the talk in case the venue network is slow.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Future work: extending automation into art</h2></header>
+                
+                
+                    <section class="slide-content"><p><strong>The tools change, but the process remains: notice, describe, execute, reproduce, automate, and share.</strong></p>
+<p>This prototype is inspired by the <strong>Dead Cells</strong> 3D-to-2D workflow, adapted to use reusable <strong>Krita documents</strong> and <strong>Python scripts</strong> for composition and export:</p>
+<ul>
+<li><strong>Blender</strong> imports an FBX and renders animation, depth, and normal passes.</li>
+<li><strong>G’MIC</strong> applies repeatable stylization filters to every frame.</li>
+<li><strong>Krita</strong> composites those passes through reusable layer templates.</li>
+<li><strong>Make and containers</strong> run each stage with controlled tools and versions.</li>
+</ul>
+<p><strong>One animated 3D asset &gt; one consistent 30-frame 2D sequence</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>The same methodology applies anywhere work repeats. Procedural audio produces sounds and music from code, rules, and parameters; the same approach can generate art, levels, animation, and other game content. Reusable tools let your strongest skills compensate for limited time or weaker skills.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Prototype: from 3D render to styled output</h2></header>
+                
+                
+                    <section class="slide-content"><p><img alt="art_pipeline_gallery" src="theme/images/art-pipeline-gallery.png" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Every tool we share makes the next game easier to build</h2></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li><strong>Integrate:</strong> Start with shared programs and knowledge such as Godot, Blender, Krita, libraries, and existing workflows.</li>
+<li><strong>Automate:</strong> Separate reusable game functionality from project-specific code, then encode the development environment and process.</li>
+<li><strong>Move up the stack:</strong> Publish addons, tools, containers, CI workflows, documentation, and examples so the next developer starts higher up the stack.</li>
+</ul>
+<p>Large companies build shared internal platforms. Cloud and open-source communities extend this idea through reusable Terraform modules, Ansible collections, container images, and CI actions.<br>
+<strong>The indie game community can build its own shared stack in the same way.</strong></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Share your work on indiegamedev.org</h2></header>
+                
+                
+                    <section class="slide-content"><p><img alt="indiegamedev_homepage" src="theme/images/indiegamedev-homepage.png" />
+<img alt="indiegamedev_qrcode" src="theme/images/indiegamedev-qrcode.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                        <p>indiegamedev.org is intended to become an open archive connecting the work and knowledge of indie game developers: games and reusable tools, articles, tutorials, and videos, and developer and studio profiles.</p>
+<p>Today, the archive contains only my own contributions. I am building the structure and contribution workflow first (Markdown, pull request, review, publish) so other developers and studios can add their work later.</p>
+<p>Sharing code creates leverage. Sharing the knowledge and community around it makes that leverage easier to find and use.</p>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: talk.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Questions?</h1></header>
+                
+                
+                    <section class="slide-content"><ul>
+<li><strong>Slides:</strong> nonameentername.github.io/presentations/godotfest-2026/</li>
+<li><strong>Projects:</strong> github.com/nonameentername</li>
+<li><strong>Workspace:</strong> github.com/tecunhuman/workspace</li>
+<li><strong>Community archive:</strong> indiegamedev.org</li>
+<li><strong>Studio and contact:</strong> tecunhuman.com</li>
+</ul>
+<p><img alt="godotfest_slides_qrcode" src="theme/images/godotfest-2026-slides.svg" /></p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+    <!-- Javascripts -->
+        
+        <script type="text/javascript" src="theme/js/slides.js"></script>
+        
+        
+    <!-- /Javascripts -->
+
+	<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+</body>
+</html>
